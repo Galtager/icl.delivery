@@ -1,0 +1,14 @@
+{
+  "generator-ui5-ts-app": {
+    "application": "delivery",
+    "namespace": "icl",
+    "framework": "SAPUI5",
+    "frameworkVersion": "1.111.0",
+    "author": "gal tager",
+    "tstypes": "@sapui5/ts-types-esm",
+    "tstypesVersion": "1.111.0",
+    "appId": "icl.delivery",
+    "appURI": "icl/delivery",
+    "setupCompleted": true
+  }
+}
