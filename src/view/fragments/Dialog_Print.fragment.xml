@@ -1,0 +1,68 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+	<Dialog
+		contentHeight="25rem"
+		class="borderRadius withFooter"
+		contentWidth="35rem"
+		verticalScrolling="false"
+		horizontalScrolling="false"
+	>
+		<customHeader>
+			<Toolbar class="dialog-title-bg">
+				<content>
+					<ToolbarSpacer/>
+					<Title
+						text="{i18n>print}"
+						class="label"
+					/>
+					<ToolbarSpacer/>
+				</content>
+			</Toolbar>
+		</customHeader>
+		<content>
+			<VBox
+				class="sapUiSmallMargin sapUiLargeMarginTop"
+				height="100%"
+			>
+				<Text
+					class="title sapUiSmallMarginBottom"
+					text="{i18n>choosePrinter}"
+				/>
+				<HBox width="50%">
+					<Select
+						items="{
+							path: 'DelModel>/oData/printers'
+						}"
+						class="selectClass sapUiSmallMarginEnd"
+					>
+						<c:Item
+							key="{DelModel>key}"
+							text="{DelModel>name}"
+						/>
+					</Select>
+				</HBox>
+				<HBox
+					class="flex1 likeFooter"
+					justifyContent="SpaceBetween"
+					width="100%"
+					alignItems="End"
+				>
+					<Button
+						width="10rem"
+						text="{i18n>cancel}"
+						class="cyan-btn-outline btnHieght2"
+						press="cancelFragment($event,'Dialog_Print')"
+					/>
+					<Button
+						width="10rem"
+						press="cancelFragment($event,'Dialog_Print')"
+						text="{i18n>accept_print}"
+						class="cyan-btn-fill btnHieght25"
+					/>
+				</HBox>
+			</VBox>
+		</content>
+	</Dialog>
+</c:FragmentDefinition>

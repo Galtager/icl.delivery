@@ -1,0 +1,226 @@
+<mvc:View
+	controllerName="icl.delivery.controller.Preview"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	displayBlock="true"
+	height="100%"
+	busyIndicatorDelay="0"
+	xmlns:c="sap.ui.core"
+>
+	<Page>
+		<customHeader>
+			<c:Fragment
+				fragmentName="icl.delivery.view.fragments.HomeHeader"
+				type="XML"
+			/>
+		</customHeader>
+		<content>
+			<VBox class="container">
+				<!-- selects section -->
+				<HBox
+					class="sapUiSmallMarginBottom"
+					alignItems="Center"
+					wrap="Wrap"
+				>
+					<Title
+						class="title sapUiMediumMarginEnd"
+						text="{i18n>previewTitle}"
+					/>
+				</HBox>
+				<List
+					showNoData="false"
+					class="previewList"
+					items="{DelModel>/oMaintain/multiCollect/previewItems}"
+				>
+					<CustomListItem class="sapUiMediumMarginBottom">
+						<HBox
+							alignItems="Center"
+							class="sapUiTinyMarginBottom"
+						>
+							<Text
+								class="label fontBold700 sapUiSmallMarginEnd"
+								text="{i18n>request} {DelModel>reqNumber}"
+							/>
+							<ObjectStatus
+								press="requestReview($event,${DelModel>requestId})"
+								active="true"
+								class="object-status-type cyanColor sapUiSmallMarginEnd"
+								text="{DelModel>requestId}"
+							/>
+							<Text
+								class="label"
+								text="({i18n>catNums} {DelModel>items/length})"
+							/>
+						</HBox>
+						<Table
+							items="{DelModel>items}"
+							class="my-table"
+						>
+							<columns>
+								<Column
+									width="4rem"
+									minScreenWidth="Tablet"
+									hAlign="Center"
+								>
+									<Text
+										text="{i18n>request}"
+										class="text font-bold-500"
+									/>
+								</Column>
+								<Column>
+									<Text
+										text="{i18n>cat}"
+										class="text font-bold-500"
+									/>
+								</Column>
+								<Column>
+									<Text
+										text="{i18n>shortDesc}"
+										class="text font-bold-500"
+									/>
+								</Column>
+								<Column hAlign="Center">
+									<Text
+										text="{i18n>unit}"
+										class="text font-bold-500"
+									/>
+								</Column>
+								<Column>
+									<Text
+										text="{i18n>amount}"
+										class="text font-bold-500"
+									/>
+								</Column>
+								<Column>
+									<Text
+										text="{i18n>stockBalance}"
+										class="text font-bold-500"
+									/>
+								</Column>
+								<Column>
+									<VBox>
+										<Text
+											text="{i18n>locatCode}/"
+											class="text font-bold-500 "
+										/>
+										<Text
+											text="{i18n>srotNUm}"
+											class="text fontBold700"
+										/>
+									</VBox>
+								</Column>
+								<Column hAlign="Center">
+									<Text
+										text="{i18n>collect}"
+										class="text font-bold-500"
+									/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem vAlign="Middle">
+									<cells>
+										<Text
+											text="{DelModel>reqNumber}"
+											class="label"
+										/>
+										<ObjectStatus
+											press="reviewItem($event,${DelModel>catNum})"
+											active="{= !!${DelModel>/oMaintain/multiCollect/start}}"
+											class="object-status-type cyanColor sapUiMediumMarginEnd"
+											text="{DelModel>catNum}"
+										/>
+										<HBox alignItems="Center">
+											<Text
+												class="label"
+												text="{DelModel>desc}"
+											/>
+											<VBox
+												visible="{DelModel>isDanger}"
+												alignItems="Center"
+												class="sapUiTinyMarginBegin"
+											>
+												<c:Icon src="sap-icon://alert"/>
+												<Text
+													wrapping="false"
+													text="חומס"
+													class="tiny-label"
+												/>
+											</VBox>
+										</HBox>
+										<VBox>
+											<Text
+												text="{DelModel>unit}"
+												class="label"
+											/>
+										</VBox>
+										<Input
+											enabled="false"
+											value="{DelModel>amount}"
+											class="inputClass numberInput"
+										/>
+										<ObjectStatus
+											text="{DelModel>invAmount}"
+											class="object-status-type redBg"
+										/>
+										<VBox>
+											<Text
+												text="{DelModel>locat}"
+												class="label sapUiSmallMarginBottom"
+											/>
+											<Text
+												text="{DelModel>sortNum}"
+												class="label"
+											/>
+										</VBox>
+										<Image
+											src="{
+												parts: ['DelModel>accessType'],
+												formatter: '.formatter.accessImage'
+											}"
+											height="20px"
+											width="30px"
+										/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<HBox
+							alignItems="Center"
+							class="sapUiTinyMarginTop"
+						>
+							<CheckBox
+								select="checkSelected"
+								class="myCheckBox"
+								selected="{DelModel>acceptCollect}"
+							/>
+							<Title
+								class="text fontBold700"
+								text="{i18n>accCollect} {DelModel>reqNumber}"
+							/>
+						</HBox>
+					</CustomListItem>
+				</List>
+			</VBox>
+		</content>
+		<footer>
+			<Toolbar height="3.5rem">
+				<Button
+					visible="{= !${DelModel>/oMaintain/collect/endCollect/finish}}"
+					width="7rem"
+					press="onNavBack"
+					text="{i18n>back}"
+					class="cyan-btn-outline btnHieght2"
+				/>
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
+				<Button
+					press="finishMulti"
+					enabled="{= !!${DelModel>/oMaintain/previewAccept}}"
+					width="7rem"
+					text="{i18n>deliver}"
+					class="cyan-btn-fill btnHieght2"
+				/>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

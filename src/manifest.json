@@ -1,6 +1,5 @@
 {
 	"_version": "1.12.0",
-
 	"sap.app": {
 		"id": "icl.delivery",
 		"type": "application",
@@ -11,44 +10,37 @@
 			"version": "1.0.0"
 		}
 	},
-
 	"sap.ui": {
 		"technology": "UI5",
-		"icons": {
-
-		},
+		"icons": {},
 		"deviceTypes": {
 			"desktop": true,
 			"tablet": true,
 			"phone": true
 		}
 	},
-
 	"sap.ui5": {
+		"flexEnabled": false,
 		"rootView": {
 			"viewName": "icl.delivery.view.App",
 			"type": "XML",
-			"async": true,
 			"id": "app"
 		},
-
 		"dependencies": {
 			"minUI5Version": "1.111.0",
 			"libs": {
 				"sap.ui.core": {},
 				"sap.ui.layout": {},
 				"sap.ui.unified": {},
-				"sap.m": {}
+				"sap.m": {},
+				"sap.ndc": {}
 			}
 		},
-
 		"handleValidation": true,
-
 		"contentDensities": {
-			"compact": true,
+			"compact": false,
 			"cozy": true
 		},
-
 		"models": {
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
@@ -57,7 +49,16 @@
 				}
 			}
 		},
-
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				},
+				{
+					"uri": "css/media.css"
+				}
+			]
+		},
 		"routing": {
 			"config": {
 				"routerClass": "sap.m.routing.Router",
@@ -72,12 +73,53 @@
 					"pattern": "",
 					"name": "main",
 					"target": "main"
+				},
+				{
+					"pattern": "collect",
+					"name": "collect",
+					"target": "collect"
+				},
+				{
+					"pattern": "multiCollect",
+					"name": "multiCollect",
+					"target": "multiCollect"
+				},
+				{
+					"pattern": "preview",
+					"name": "preview",
+					"target": "preview"
+				},
+				{
+					"pattern": "createRequest",
+					"name": "createRequest",
+					"target": "createRequest"
 				}
 			],
 			"targets": {
 				"main": {
 					"viewId": "main",
-					"viewName": "Main"
+					"viewName": "Main",
+					"viewLevel": 1
+				},
+				"collect": {
+					"viewId": "collect",
+					"viewName": "Collect",
+					"viewLevel": 2
+				},
+				"multiCollect": {
+					"viewId": "multiCollect",
+					"viewName": "MultiCollect",
+					"viewLevel": 2
+				},
+				"preview": {
+					"viewId": "preview",
+					"viewName": "Preview",
+					"viewLevel": 3
+				},
+				"createRequest": {
+					"viewId": "createRequest",
+					"viewName": "CreateRequest",
+					"viewLevel": 2
 				}
 			}
 		}

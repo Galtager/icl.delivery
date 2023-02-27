@@ -1,20 +1,296 @@
 <mvc:View
 	controllerName="icl.delivery.controller.Main"
-	displayBlock="true"
+	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc">
-
-	<MessagePage
-		title="{i18n>appTitle}"
-		text="{i18n>appTitle}"
-		icon="sap-icon://accept"
-		id="page"
-		description="{i18n>appDescription}">
-		<buttons>
-			<Button
-				text="{i18n>btnText}"
-				press="sayHello" />
-		</buttons>
-	</MessagePage>
-
+	displayBlock="true"
+	height="100%"
+	busyIndicatorDelay="0"
+	xmlns:c="sap.ui.core"
+	xmlns:ndc="sap.ndc"
+>
+	<Page
+		id="main"
+		showFooter="{= ${DelModel>/oMaintain/collectionList/showListFooter}>0}"
+	>
+		<customHeader>
+			<c:Fragment
+				fragmentName="icl.delivery.view.fragments.HomeHeader"
+				type="XML"
+			/>
+		</customHeader>
+		<content>
+			<VBox class="container">
+				<HBox
+					class="sapUiSmallMarginBottom"
+					alignItems="Center"
+					justifyContent="SpaceBetween"
+					wrap="Wrap"
+				>
+					<Title
+						class="title"
+						text="{i18n>collection_list}"
+					/>
+					<HBox wrap="Wrap">
+						<HBox alignItems="Center">
+							<Text
+								text="{i18n>site}"
+								class="med-label sapUiTinyMarginEnd"
+							/>
+							<Select
+								selectedKey="{DelModel>/user/site}"
+								items="{
+									path: 'DelModel>/oData/sites'
+								}"
+								class="selectClass sapUiSmallMarginEnd"
+							>
+								<c:Item
+									key="{DelModel>key}"
+									text="{DelModel>name}"
+								/>
+							</Select>
+						</HBox>
+						<HBox alignItems="Center">
+							<Text
+								text="{i18n>sections}"
+								class="med-label sapUiTinyMarginEnd"
+							/>
+							<MultiComboBox
+								selectedKeys="{DelModel>/user/sections}"
+								id="noWriteCombo"
+								class="ComboBox noWriteCombo"
+								width="300px"
+								items="{
+									path: 'DelModel>/oData/sections'
+								}"
+							>
+								<c:Item
+									key="{DelModel>key}"
+									text="{DelModel>name}"
+								/>
+							</MultiComboBox>
+						</HBox>
+					</HBox>
+				</HBox>
+				<!-- search section -->
+				<HBox class="sapUiSmallMarginBottom">
+					<SearchField
+						liveChange="filter"
+						value="{DelModel>/oMaintain/collectionList/searchFilter}"
+						maxLength="40"
+						showSearchButton="false"
+						placeholder="{i18n>search_ph}"
+						class="SearchField1  fontLabelColor "
+					/>
+					<ndc:BarcodeScannerButton
+						id="sampleBarcodeScannerButton"
+						class="serchLineIcon  halfCircle"
+					/>
+				</HBox>
+				<!-- filters -->
+				<HBox
+					justifyContent="SpaceBetween"
+					wrap="Wrap"
+				>
+					<HBox
+						alignItems="Center"
+						wrap="Wrap"
+					>
+						<HBox class="sapUiMediumMarginEnd">
+							<SegmentedButton
+								class="segmentBtn"
+								selectionChange="filter"
+								items="{DelModel>/oMaintain/collectionList/groupByStatus}"
+								selectedKey="{DelModel>/oMaintain/collectionList/statusFilter}"
+							>
+								<items>
+									<SegmentedButtonItem
+										key="{DelModel>status}"
+										text="{DelModel>statusDesc} ({DelModel>count})"
+									/>
+								</items>
+							</SegmentedButton>
+						</HBox>
+						<List
+							class="horiz-List "
+							items="{DelModel>/oMaintain/collectionList/groupByType}"
+						>
+							<CustomListItem class="sapUiSmallMarginEnd">
+								<HBox alignItems="End">
+									<CheckBox
+										select="filter"
+										class="myCheckBox"
+										selected="{DelModel>selected}"
+									/>
+									<ObjectStatus
+										class="object-status-type"
+										text="{
+											parts: ['DelModel>type'],
+											formatter: '.formatter.typeText'
+										} ({DelModel>count})"
+										icon="{
+											parts: ['DelModel>type'],
+											formatter: '.formatter.typeIcon'
+										}"
+										state="{= ${DelModel>type}==='argunt'?'Error':'None'}"
+									/>
+								</HBox>
+							</CustomListItem>
+						</List>
+					</HBox>
+					<Button
+						width="5.5rem"
+						text="+ {i18n>reuqest}"
+						press="navTo('createRequest')"
+						class="cyan-btn-outline btnHieght2"
+					/>
+				</HBox>
+				<List
+					id="collectList"
+					class="fontBold pathsList sapUiTinyMarginTop"
+					items="{DelModel>/oData/collectList}"
+					growing="true"
+					showNoData="false"
+					mode="MultiSelect"
+					itemPress="checked"
+					selectionChange="checked"
+				>
+					<CustomListItem
+						type="Active"
+						press="navToCollect"
+						class="sapUiSmallMarginBottom"
+					>
+						<HBox
+							justifyContent="SpaceBetween"
+							class=" vbox-colorByType"
+							alignItems="Start"
+						>
+							<customData>
+								<c:CustomData
+									key="type"
+									value="{= ${DelModel>type}==='timing'?'timing':'else'}"
+									writeToDom="true"
+								/>
+							</customData>
+							<c:Icon
+								class="icon-type"
+								src="{
+									parts: ['DelModel>type'],
+									formatter: '.formatter.typeIcon'
+								}"
+							/>
+							<VBox width="10%">
+								<Label
+									text="{i18n>status}"
+									class="greyText"
+								/>
+								<Text
+									class="med-label"
+									text="{DelModel>statusDesc}"
+								/>
+							</VBox>
+							<VBox width="15%">
+								<Label
+									text="{i18n>armor_num}"
+									class="greyText"
+								/>
+								<Text
+									text="{DelModel>armorId}"
+									class="med-label"
+								/>
+							</VBox>
+							<VBox width="10%">
+								<Label
+									text="{i18n>req_date}"
+									class="greyText"
+								/>
+								<Text
+									class="med-label"
+									text="{DelModel>date}"
+								/>
+								<Text
+									class="tiny-label"
+									text="{DelModel>time}"
+								/>
+							</VBox>
+							<VBox width="10%">
+								<Label
+									text="{i18n>num_items}"
+									class="greyText"
+								/>
+								<Text
+									class="med-label"
+									text="{DelModel>amount}"
+								/>
+							</VBox>
+							<VBox width="10%">
+								<Label
+									text="{i18n>ask_name}"
+									class="greyText"
+								/>
+								<Text
+									class="med-label"
+									text="{DelModel>askName}"
+								/>
+							</VBox>
+							<VBox width="10%">
+								<Label
+									text="{i18n>factory}"
+									class="greyText"
+								/>
+								<Text
+									class="med-label"
+									text="{DelModel>factory}"
+								/>
+							</VBox>
+							<VBox width="10%">
+								<Label
+									text="{i18n>collect}"
+									class="greyText"
+								/>
+								<HBox alignItems="Center">
+									<Label
+										class="med-label  vAlingMiddle"
+										text="{
+											parts: ['DelModel>accessType'],
+											formatter: '.formatter.accessDesc'
+										}"
+										wrapping="true"
+									/>
+									<Image
+										src="{
+											parts: ['DelModel>accessType'],
+											formatter: '.formatter.accessImage'
+										}"
+										height="20px"
+										width="30px"
+									/>
+								</HBox>
+							</VBox>
+							<Button
+								press="navToCollect"
+								icon="sap-icon://navigation-right-arrow"
+								class="cyan-btn-fill circleBtn"
+							/>
+						</HBox>
+					</CustomListItem>
+				</List>
+			</VBox>
+		</content>
+		<footer>
+			<Toolbar height="3.5rem">
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
+				<Label
+					text="{DelModel>/oMaintain/collectionList/showListFooter} {i18n>selected_req}"
+					class="text"
+				/>
+				<Button
+					width="7rem"
+					press="navToMultiCollect"
+					text="{i18n>collect}"
+					class="cyan-btn-fill btnHieght2"
+				/>
+			</Toolbar>
+		</footer>
+	</Page>
 </mvc:View>

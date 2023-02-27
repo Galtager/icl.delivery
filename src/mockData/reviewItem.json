@@ -1,0 +1,50 @@
+[
+    {
+        "catNum": "0/111/333/053",
+        "longDesc": "מופה מתכווצת לכבל4*1.5",
+        "unit": "יחידה",
+        "stockAmount": "8",
+        "storage": "ארגז",
+        "location": "C11/D03",
+        "files": [
+            {
+                "name": "מופת מתכווצת",
+                "type": "application/pdf",
+                "date": "23/10/2019",
+                "blob": "somefckingblob"
+            }
+        ]
+    },
+    {
+        "catNum": "0/163/130/141",
+        "longDesc": "מופה מתכווצת לכבל4*1.5",
+        "unit": "יחידה",
+        "stockAmount": "8",
+        "storage": "ארגז",
+        "location": "C11/D03",
+        "files": [
+            {
+                "name": "מופת מתכווצת",
+                "type": "application/pdf",
+                "date": "23/10/2019",
+                "blob": "somefckingblob"
+            }
+        ]
+    },
+    {
+        "catNum": "0/573/011/658",
+        "longDesc": "מופה מתכווצת לכבל4*1.5",
+        "unit": "יחידה",
+        "stockAmount": "8",
+        "storage": "ארגז",
+        "location": "C11/D03",
+        "files": [
+            {
+                "name": "מופת מתכווצת",
+                "type": "application/pdf",
+                "date": "23/10/2019",
+                "blob": "somefckingblob"
+            }
+        ]
+    }
+]

@@ -1,0 +1,83 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+	<Dialog
+		class="borderRadius"
+		contentWidth="30rem"
+	>
+		<customHeader>
+			<Toolbar class="dialog-title-bg">
+				<content>
+					<ToolbarSpacer/>
+					<Title
+						text="{= !${DelModel>/oMaintain/share/showStartDialog}?${i18n>attention}:${i18n>collectStarted}}"
+						class="label"
+					/>
+					<ToolbarSpacer/>
+				</content>
+			</Toolbar>
+		</customHeader>
+		<content>
+			<VBox
+				alignItems="Center"
+				class="paddingTop"
+			>
+				<Text
+					visible="{= !${DelModel>/oMaintain/share/showStartDialog}}"
+					text="{i18n>erroFound} - {DelModel>/oMaintain/collect/startError}"
+					class="title bold-text sapUiSmallMarginBottom"
+				/>
+				<Text
+					visible="{= !${DelModel>/oMaintain/share/showStartDialog}}"
+					text="{i18n>doContinue}"
+					class="title bold-text sapUiMediumMarginBottom"
+				/>
+				<!-- if press continue -->
+				<Text
+					visible="{= !!${DelModel>/oMaintain/share/showStartDialog}&amp;&amp;${DelModel>/currView}==='collect'}"
+					text="{i18n>requestNum} {DelModel>/oMaintain/collect/currCollect/requestId} {i18n>associatedTo}"
+					class="title bold-text sapUiSmallMarginBottom"
+				/>
+				<Text
+					visible="{= !!${DelModel>/oMaintain/share/showStartDialog}&amp;&amp;${DelModel>/currView}==='multiCollect'}"
+					text="{i18n>listAssociatedTo}"
+					class="title bold-text sapUiSmallMarginBottom"
+				/>
+				<Text
+					visible="{= !!${DelModel>/oMaintain/share/showStartDialog}}"
+					text="{DelModel>/user/name}"
+					class="title bold-text sapUiSmallMarginBottom"
+				/>
+				<Text
+					visible="{= !!${DelModel>/oMaintain/share/showStartDialog}}"
+					text="{= ${DelModel>/currView}==='collect'?${i18n>closeForOthers}:${i18n>listCloseForOthers}}"
+					class="text bold- sapUiSmallMarginBottom"
+				/>
+				<!--  -->
+				<HBox
+					justifyContent="SpaceBetween"
+					class="sapUiSmallMarginBottom"
+					width="90%"
+				>
+					<Button
+						visible="{= !${DelModel>/oMaintain/share/showStartDialog}}"
+						width="6rem"
+						text="{i18n>cancel}"
+						class="cyan-btn-outline btnHieght2"
+						press="cancelFragment($event,'Dialog_StartCollect')"
+					/>
+					<Button
+						visible="{= !${DelModel>/oMaintain/share/showStartDialog}}"
+						width="6rem"
+						press="startCollect"
+						text="{i18n>continue}"
+						class="cyan-btn-fill btnHieght25"
+					/>
+				</HBox>
+			</VBox>
+		</content>
+		<buttons>
+		</buttons>
+	</Dialog>
+</c:FragmentDefinition>

@@ -1,0 +1,64 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+	<Popover
+		class="my-popover"
+		placement="Bottom"
+	>
+		<customHeader>
+			<Toolbar class="pop-toolbar">
+				<Title
+					text="{i18n>externalStock}"
+					class="label thin-text sapUiMediumMarginBegin"
+				/>
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
+				<c:Icon
+					size="1.2rem"
+					press="cancelFragment($event,'PopOver_OutOfStock')"
+					src="sap-icon://decline"
+				/>
+			</Toolbar>
+		</customHeader>
+		<content>
+			<VBox class="sapUiSmallMargin">
+				<HBox class="sapUiSmallMarginBottom">
+					<Text
+						width="5rem"
+						class="label thin-text sapUiTinyMarginEnd"
+						text="{i18n>site} 11"
+					/>
+					<Text
+						class="label thin-text sapUiSmallMarginEnd"
+						text="{i18n>section} 3 חשמל"
+					/>
+					<Text
+						class="label thin-text sapUiSmallMarginEnd"
+						text="{i18n>stockBalance} 23"
+					/>
+				</HBox>
+				<HBox>
+					<Text
+						width="5rem"
+						class="label thin-text sapUiTinyMarginEnd"
+						text="{i18n>site} 112"
+					/>
+					<Text
+						class="label thin-text sapUiSmallMarginEnd"
+						text="{i18n>section} 3 חשמל"
+					/>
+					<Text
+						class="label thin-text sapUiSmallMarginEnd"
+						text="{i18n>stockBalance} 23"
+					/>
+					<ObjectStatus
+						state="Warning"
+						class="object-status-type"
+						text="בתהליך כניסה"
+					/>
+				</HBox>
+			</VBox>
+		</content>
+	</Popover>
+</c:FragmentDefinition>

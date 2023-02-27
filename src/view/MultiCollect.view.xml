@@ -1,0 +1,348 @@
+<mvc:View
+	controllerName="icl.delivery.controller.MultiCollect"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	displayBlock="true"
+	height="100%"
+	busyIndicatorDelay="0"
+	xmlns:c="sap.ui.core"
+	xmlns:ndc="sap.ndc"
+>
+	<Page>
+		<customHeader>
+			<c:Fragment
+				fragmentName="icl.delivery.view.fragments.HomeHeader"
+				type="XML"
+			/>
+		</customHeader>
+		<content>
+			<VBox class="container">
+				<!-- selects section -->
+				<HBox
+					class="sapUiSmallMarginBottom"
+					alignItems="Center"
+					wrap="Wrap"
+				>
+					<Title
+						class="title sapUiMediumMarginEnd"
+						text="{DelModel>/oMaintain/multiCollect/currCollects/length} {i18n>collectsList}"
+					/>
+					<Button
+						visible="{= !${DelModel>/oMaintain/multiCollect/start}&amp;&amp;!${DelModel>/oMaintain/collect/endCollect/finish}}"
+						width="10rem"
+						press="onStartCollectDialog"
+						text="{i18n>startCollect}"
+						class="cyan-btn-fill btnHieght2"
+					/>
+				</HBox>
+				<!-- user -->
+				<HBox
+					justifyContent="SpaceBetween"
+					wrap="Wrap"
+				>
+					<HBox class="sapUiSmallMarginBottom">
+						<Label
+							text="{i18n>collectsListItems} ({DelModel>/oData/multiCollectItems/length})"
+							class="med-label sapUiTinyMarginEnd"
+						/>
+						<Label
+							visible="{= !${DelModel>/oMaintain/multiCollect/start}}"
+							text="חדש"
+							class="med-label sapUiTinyMarginEnd fontBold700"
+						/>
+						<ObjectStatus
+							visible="{= !!${DelModel>/oMaintain/multiCollect/start}&amp;&amp;!${DelModel>/oMaintain/collect/endCollect/finish}}"
+							state="Success"
+							class="object-status-type sapUiTinyMarginEnd"
+							text="{i18n>inWork}"
+						/>
+						<ObjectStatus
+							visible="{= !!${DelModel>/oMaintain/multiCollect/start}&amp;&amp;!${DelModel>/oMaintain/collect/endCollect/finish}}"
+							state="Success"
+							press="onFragmentHandler($event,'PopOver_Contact')"
+							active="true"
+							class="object-status-type fontBold700 sapUiMediumMarginEnd"
+							text="{DelModel>/user/name}"
+						/>
+					</HBox>
+					<HBox class="sapUiSmallMarginBottom">
+						<Label
+							text="{i18n>site} {DelModel>/user/site} {DelModel>/user/sectionsNames}"
+							class="med-label sapUiTinyMarginEnd"
+						/>
+					</HBox>
+				</HBox>
+				<!-- search section -->
+				<HBox class="sapUiSmallMarginBottom">
+					<SearchField
+						enabled="{= !!${DelModel>/oMaintain/multiCollect/start}}"
+						value="{DelModel>/oMaintain/multiCollect/searchFilter}"
+						liveChange="filter"
+						maxLength="40"
+						showSearchButton="false"
+						placeholder="{i18n>search}"
+						class="SearchField1  fontLabelColor "
+					/>
+					<ndc:BarcodeScannerButton
+						id="sampleBarcodeScannerButton"
+						class="serchLineIcon  halfCircle"
+					/>
+				</HBox>
+				<!-- start Collect -->
+				<HBox
+					class="sapUiSmallMarginBottom"
+					alignItems="Center"
+					justifyContent="SpaceBetween"
+					wrap="Wrap"
+				>
+					<HBox
+						class="sapUiMediumMarginEnd"
+						alignItems="Center"
+					>
+						<MultiComboBox
+							showSecondaryValues="true"
+							showSelectAll="true"
+							selectionChange="filter"
+							selectedKeys="{DelModel>/oMaintain/multiCollect/collectFilter}"
+							id="noWriteCombo3"
+							class="ComboBox noWriteCombo textRight"
+							width="300px"
+							items="{
+								path: 'DelModel>/oMaintain/multiCollect/currCollects'
+							}"
+						>
+							<c:ListItem
+								key="{DelModel>reqNumber}"
+								text="{i18n>request} {DelModel>reqNumber}"
+								additionalText="{i18n>requestNum} {DelModel>requestId}"
+							/>
+						</MultiComboBox>
+					</HBox>
+					<HBox
+						class="sapUiMediumMarginEnd"
+						alignItems="Center"
+					>
+						<Label
+							text="{i18n>sortBy}"
+							class="med-label sapUiTinyMarginEnd"
+						/>
+						<SegmentedButton
+							enabled="{= !!${DelModel>/oMaintain/multiCollect/start}}"
+							class="segmentBtn"
+							selectionChange="sortTable($event,'multiItemsTable')"
+							selectedKey="{DelModel>/oMaintain/collect/sorter}"
+						>
+							<items>
+								<SegmentedButtonItem
+									key="catNum"
+									text="{i18n>catNum}"
+								/>
+								<SegmentedButtonItem
+									key="sortNum"
+									text="{i18n>srotNUm}"
+								/>
+								<SegmentedButtonItem
+									key="locat"
+									text="{i18n>locatCode}"
+								/>
+							</items>
+						</SegmentedButton>
+					</HBox>
+				</HBox>
+				<Table
+					id="multiItemsTable"
+					mode="MultiSelect"
+					items="{DelModel>/oData/multiCollectItems}"
+					class="my-table"
+				>
+					<customData>
+						<c:CustomData
+							key="blocked"
+							value="{= !!${DelModel>/oMaintain/multiCollect/start}?'false':'true'}"
+							writeToDom="true"
+						/>
+					</customData>
+					<columns>
+						<Column
+							width="4rem"
+							minScreenWidth="Tablet"
+							hAlign="Center"
+						>
+							<Text
+								text="{i18n>request}"
+								class="text font-bold-500"
+							/>
+						</Column>
+						<Column>
+							<Text
+								text="{i18n>cat}"
+								class="text font-bold-500"
+							/>
+						</Column>
+						<Column>
+							<Text
+								text="{i18n>shortDesc}"
+								class="text font-bold-500"
+							/>
+						</Column>
+						<Column hAlign="Center">
+							<Text
+								text="{i18n>unit}"
+								class="text font-bold-500"
+							/>
+						</Column>
+						<Column>
+							<Text
+								text="{i18n>amount}"
+								class="text font-bold-500"
+							/>
+						</Column>
+						<Column>
+							<Text
+								text="{i18n>stockBalance}"
+								class="text font-bold-500"
+							/>
+						</Column>
+						<Column>
+							<VBox>
+								<Text
+									text="{i18n>locatCode}/"
+									class="text font-bold-500 "
+								/>
+								<Text
+									text="{i18n>srotNUm}"
+									class="text fontBold700"
+								/>
+							</VBox>
+						</Column>
+						<Column hAlign="Center">
+							<Text
+								text="{i18n>collect}"
+								class="text font-bold-500"
+							/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem vAlign="Middle">
+							<cells>
+								<Text
+									text="{DelModel>reqNumber}"
+									class="label"
+								/>
+								<ObjectStatus
+									press="reviewItem($event,${DelModel>catNum})"
+									active="{= !!${DelModel>/oMaintain/multiCollect/start}}"
+									class="object-status-type cyanColor sapUiMediumMarginEnd"
+									text="{DelModel>catNum}"
+								/>
+								<HBox alignItems="Center">
+									<Text
+										class="label"
+										text="{DelModel>desc}"
+									/>
+									<VBox
+										visible="{DelModel>isDanger}"
+										alignItems="Center"
+										class="sapUiTinyMarginBegin"
+									>
+										<c:Icon src="sap-icon://alert"/>
+										<Text
+											wrapping="false"
+											text="חומס"
+											class="tiny-label"
+										/>
+									</VBox>
+								</HBox>
+								<VBox>
+									<Text
+										text="{DelModel>unit}"
+										class="label"
+									/>
+									<Button
+										press="openNumsDialog"
+										enabled="{= !!${DelModel>/oMaintain/multiCollect/start}}"
+										visible="{= ${DelModel>isMochlol}&amp;&amp;!!${DelModel>personalNum}}"
+										text="{DelModel>personalNum}"
+										type="Accept"
+										class="michlolBtn2"
+									/>
+									<Button
+										press="openNumsDialog"
+										visible="{= ${DelModel>isMochlol}&amp;&amp;!${DelModel>personalNum}}"
+										enabled="{= !!${DelModel>/oMaintain/multiCollect/start}}"
+										text="{i18n>michlol}"
+										iconFirst="false"
+										icon="sap-icon://add"
+										class="michlolBtn"
+									/>
+								</VBox>
+								<Input
+									enabled="{= !!${DelModel>/oMaintain/multiCollect/start}}"
+									value="{DelModel>amount}"
+									class="inputClass numberInput"
+								/>
+								<ObjectStatus
+									state="{
+										parts: ['DelModel>amount', 'DelModel>invAmount'],
+										formatter: '.formatter.outOfStock'
+									}"
+									active="{
+										parts: ['DelModel>amount', 'DelModel>invAmount'],
+										formatter: '.formatter.outOfStockBool'
+									}"
+									press="onFragmentHandler($event,'PopOver_OutOfStock')"
+									text="{DelModel>invAmount}"
+									class="object-status-type redBg"
+								/>
+								<VBox>
+									<Text
+										text="{DelModel>locat}"
+										class="label sapUiSmallMarginBottom"
+									/>
+									<Text
+										text="{DelModel>sortNum}"
+										class="label"
+									/>
+								</VBox>
+								<Image
+									src="{
+										parts: ['DelModel>accessType'],
+										formatter: '.formatter.accessImage'
+									}"
+									height="20px"
+									width="30px"
+								/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</VBox>
+		</content>
+		<footer>
+			<Toolbar height="3.5rem">
+				<Button
+					visible="{= !${DelModel>/oMaintain/collect/endCollect/finish}}"
+					width="7rem"
+					press="onPrintDialog"
+					text="{i18n>print}"
+					class="cyan-btn-outline btnHieght2"
+				/>
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
+				<Button
+					visible="{= !!${DelModel>/oMaintain/multiCollect/start}}"
+					width="7rem"
+					text="{i18n>save}"
+					class="cyan-btn-outline btnHieght2"
+				/>
+				<Button
+					visible="{= !!${DelModel>/oMaintain/multiCollect/start}}"
+					press="onFinishCollects"
+					width="7rem"
+					text="{i18n>deliver}"
+					class="cyan-btn-fill btnHieght2"
+				/>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

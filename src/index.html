@@ -10,22 +10,21 @@
 	<title>UI5 Application delivery</title>
 
 	<script id="sap-ui-bootstrap"
-			src="resources/sap-ui-core.js"
+			src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
 			data-sap-ui-resourceroots='{
+				"ui5lab.sign": "./thirdparty/ui5lab/sign/",
 				"icl.delivery": "./"
 			}'
 			data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
 			data-sap-ui-compatVersion="edge"
 			data-sap-ui-async="true"
 			data-sap-ui-frameOptions="trusted"
-			data-sap-ui-theme="sap_fiori_3"
-			data-sap-ui-xx-waitForTheme="true"
-			data-sap-ui-xx-supportedLanguages="en,de">
+			data-sap-ui-theme="sap_fiori_3">
 	</script>
 
 </head>
 
-<body class="sapUiBody">
-	<div data-sap-ui-component data-name="icl.delivery"></div>
+<body class="sapUiBody" id="content">
+	<div data-sap-ui-component data-name="icl.delivery" data-id="container" data-settings='{"id" : "icl.delivery"}'></div>
 </body>
 </html>
