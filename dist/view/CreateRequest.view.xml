@@ -1,0 +1,222 @@
+<mvc:View
+	controllerName="icl.delivery.controller.CreateRequest"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	displayBlock="true"
+	height="100%"
+	busyIndicatorDelay="0"
+	xmlns:c="sap.ui.core"
+	xmlns:ndc="sap.ndc"
+>
+	<Page>
+		<customHeader>
+			<c:Fragment
+				fragmentName="icl.delivery.view.fragments.HomeHeader"
+				type="XML"
+			/>
+		</customHeader>
+		<content>
+			<VBox class="container">
+				<Title
+					visible="{= !${DelModel>/oMaintain/createReq/armorSel}}"
+					class="title sapUiMediumMarginEnd sapUiSmallMarginBottom"
+					text="{i18n>creeteReqTitle}"
+				/>
+				<Title
+					visible="{= !!${DelModel>/oMaintain/createReq/armorSel}}"
+					class="title sapUiMediumMarginEnd sapUiSmallMarginBottom"
+					text="{= ${DelModel>/oMaintain/createReq/step}==='1'?${i18n>creeteReqTitle2}:${i18n>creeteReqTitle3}}"
+				/>
+				<Label
+					visible="{= !!${DelModel>/oMaintain/createReq/armorSel}}"
+					text="{i18n>num_armor} {DelModel>/oMaintain/createReq/armorSel}"
+					class="med-label sapUiTinyMarginEnd sapUiSmallMarginBottom"
+				/>
+				<HBox
+					class="sapUiSmallMarginBottom"
+					width="30rem"
+					visible="{= !${DelModel>/oMaintain/createReq/armorSel}}"
+				>
+					<SearchField
+						value="{DelModel>/oMaintain/createReq/searchFilter}"
+						search="searchArmor"
+						maxLength="40"
+						showSearchButton="false"
+						placeholder="{i18n>search}"
+						class="SearchField1  fontLabelColor "
+					/>
+					<ndc:BarcodeScannerButton class="serchLineIcon  halfCircle"/>
+				</HBox>
+				<HBox
+					visible="{= !!${DelModel>/oMaintain/createReq/armorSel}&amp;&amp; ${DelModel>/oMaintain/createReq/step}==='1'}"
+					class="sapUiSmallMarginBottom"
+					width="100%"
+				>
+					<SearchField
+						search="searchArmor"
+						maxLength="40"
+						showSearchButton="false"
+						placeholder="{i18n>searchItem}"
+						class="SearchField1  fontLabelColor "
+					/>
+					<ndc:BarcodeScannerButton class="serchLineIcon  halfCircle"/>
+				</HBox>
+				<!-- start Collect -->
+				<Table
+					visible="{= !!${DelModel>/oMaintain/createReq/armorSel}}"
+					id="createReqItems"
+					mode="{= ${DelModel>/oMaintain/createReq/step}==='1'?'MultiSelect':'None'}"
+					items="{DelModel>/oData/armorItems}"
+					class="my-table"
+					selectionChange="checked"
+				>
+					<columns>
+						<Column
+							width="4rem"
+							minScreenWidth="Tablet"
+							hAlign="Center"
+						>
+							<Text
+								text="{i18n>num}"
+								class="text font-bold-500"
+							/>
+						</Column>
+						<Column>
+							<Text
+								text="{i18n>cat}"
+								class="text font-bold-500"
+							/>
+						</Column>
+						<Column>
+							<Text
+								text="{i18n>shortDesc}"
+								class="text font-bold-500"
+							/>
+						</Column>
+						<Column hAlign="Center">
+							<Text
+								text="{i18n>unit}"
+								class="text font-bold-500"
+							/>
+						</Column>
+						<Column>
+							<Text
+								text="{i18n>amount}"
+								class="text font-bold-500"
+							/>
+						</Column>
+						<Column>
+							<Text
+								text="{i18n>stockBalance}"
+								class="text font-bold-500"
+							/>
+						</Column>
+						<Column>
+							<Text
+								text="{i18n>locatCode}"
+								class="text font-bold-500 "
+							/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem vAlign="Middle">
+							<cells>
+								<Text
+									text="{DelModel>num}"
+									class="label"
+								/>
+								<ObjectStatus
+									press="reviewItem($event,${DelModel>catNum})"
+									active="true"
+									class="object-status-type cyanColor sapUiMediumMarginEnd"
+									text="{DelModel>catNum}"
+								/>
+								<HBox alignItems="Center">
+									<Text
+										class="label"
+										text="{DelModel>desc}"
+									/>
+									<VBox
+										visible="{DelModel>isDanger}"
+										alignItems="Center"
+										class="sapUiTinyMarginBegin"
+									>
+										<c:Icon src="sap-icon://alert"/>
+										<Text
+											wrapping="false"
+											text="חומס"
+											class="tiny-label"
+										/>
+									</VBox>
+								</HBox>
+								<VBox>
+									<Text
+										text="{DelModel>unit}"
+										class="label"
+									/>
+								</VBox>
+								<HBox>
+									<Input
+										visible="{= ${DelModel>/oMaintain/createReq/step}==='1'}"
+										value="{DelModel>amount}"
+										class="inputClass numberInput"
+									/>
+									<ObjectStatus
+										visible="{= ${DelModel>/oMaintain/createReq/step}==='2'}"
+										text="{DelModel>amount}"
+										class="object-status-type redBg"
+									/>
+								</HBox>
+								<ObjectStatus
+									text="{DelModel>invAmount}"
+									class="object-status-type redBg"
+								/>
+								<Text
+									text="{DelModel>locat}"
+									class="label sapUiSmallMarginBottom"
+								/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</VBox>
+		</content>
+		<footer>
+			<Toolbar
+				height="3.5rem"
+				visible="{= !!${DelModel>/oMaintain/createReq/armorSel}}"
+			>
+				<Button
+					visible="{= ${DelModel>/oMaintain/createReq/step}==='1'}"
+					width="7rem"
+					press="cancelArmor"
+					text="{i18n>cancel}"
+					class="cyan-btn-outline btnHieght2"
+				/>
+				<Button
+					visible="{= ${DelModel>/oMaintain/createReq/step}==='2'}"
+					width="7rem"
+					press="backToEdit"
+					text="{i18n>back}"
+					class="cyan-btn-outline btnHieght2"
+				/>
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
+				<Button
+					press="preview"
+					visible="{= ${DelModel>/oMaintain/createReq/step}==='1'}"
+					enabled="{= !!${DelModel>/oMaintain/createReq/continue}}"
+					width="7rem"
+					text="{i18n>continue}"
+					class="cyan-btn-fill btnHieght2"
+				/>
+				<Button
+					visible="{= ${DelModel>/oMaintain/createReq/step}==='2'}"
+					width="7rem"
+					text="{i18n>accept}"
+					class="cyan-btn-fill btnHieght2"
+				/>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

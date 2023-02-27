@@ -1,0 +1,84 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+	<Dialog
+		contentHeight="90%"
+		class="borderRadius withFooter"
+		contentWidth="35rem"
+		verticalScrolling="false"
+		horizontalScrolling="false"
+	>
+		<customHeader>
+			<Toolbar class="dialog-title-bg">
+				<content>
+					<ToolbarSpacer/>
+					<Title
+						text="{i18n>selectNum}"
+						class="label"
+					/>
+					<ToolbarSpacer/>
+				</content>
+			</Toolbar>
+		</customHeader>
+		<content>
+			<VBox
+				class="sapUiSmallMargin sapUiLargeMarginTop"
+				height="100%"
+			>
+				<HBox class="sapUiSmallMarginBottom">
+					<c:Icon
+						class="sapUiSmallMarginEnd"
+						size="1.5rem"
+						color="#00b5d3"
+						src="sap-icon://complete"
+					/>
+					<Text
+						class="title"
+						text="{i18n>requestNum} {DelModel>/oMaintain/collect/currCollect/requestId} {i18n>successCollect}"
+					/>
+				</HBox>
+				<Text
+					class="text sapUiLargeMarginBottom"
+					text="{i18n>materialNum} {DelModel>/oMaintain/collect/endCollect/materialNum}"
+				/>
+				<Text
+					class="text sapUiSmallMarginBottom"
+					text="{i18n>choosePrinter}"
+				/>
+				<HBox width="50%">
+					<Select
+						items="{
+							path: 'DelModel>/oData/printers'
+						}"
+						class="selectClass sapUiSmallMarginEnd"
+					>
+						<c:Item
+							key="{DelModel>key}"
+							text="{DelModel>name}"
+						/>
+					</Select>
+				</HBox>
+				<HBox
+					class="flex1 likeFooter"
+					justifyContent="SpaceBetween"
+					width="100%"
+					alignItems="End"
+				>
+					<Button
+						width="10rem"
+						text="{i18n>toList}"
+						class="cyan-btn-outline btnHieght2"
+						press="navTo('main')"
+					/>
+					<Button
+						width="10rem"
+						press="onPrintFinish"
+						text="{i18n>print}"
+						class="cyan-btn-fill btnHieght25"
+					/>
+				</HBox>
+			</VBox>
+		</content>
+	</Dialog>
+</c:FragmentDefinition>

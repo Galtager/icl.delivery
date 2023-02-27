@@ -1,0 +1,90 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+	<Dialog
+		contentHeight="90%"
+		class="borderRadius withFooter"
+		contentWidth="35rem"
+	>
+		<customHeader>
+			<Toolbar class="dialog-title-bg">
+				<content>
+					<ToolbarSpacer/>
+					<Title
+						text="{i18n>selectNum}"
+						class="label"
+					/>
+					<ToolbarSpacer/>
+				</content>
+			</Toolbar>
+		</customHeader>
+		<content>
+			<VBox alignItems="Center">
+				<HBox
+					width="90%"
+					class="sapUiTinyMarginTopBottom"
+				>
+					<SearchField
+						showSearchButton="false"
+						placeholder="{i18n>search}"
+						class="SearchField1  fontLabelColor  SearchFieldStandAlone"
+					/>
+				</HBox>
+				<Table
+					rememberSelections="false"
+					class="numbers-table"
+					showSeparators="None"
+					id="numbersTable"
+					mode="SingleSelectMaster"
+					selectionChange="onSelectNum"
+					items="{DelModel>/oData/personalNumbers}"
+				>
+					<columns>
+						<Column minScreenWidth="Tablet">
+							<Text
+								text="{i18n>personalNum}"
+								class="text font-bold-500"
+							/>
+						</Column>
+						<Column hAlign="Center">
+							<Text
+								text="{i18n>catNum2}"
+								class="text font-bold-500"
+							/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem vAlign="Middle">
+							<cells>
+								<Text
+									text="{DelModel>presonalNum}"
+									class="label"
+								/>
+								<Text
+									text="{DelModel>catNum}"
+									class="label"
+								/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+				<!--  -->
+			</VBox>
+		</content>
+		<buttons>
+			<Button
+				width="10rem"
+				text="{i18n>cancel}"
+				class="cyan-btn-outline btnHieght2"
+				press="cancelFragment($event,'Dialog_SelectNum')"
+			/>
+			<Button
+				width="10rem"
+				press="onSaveNum"
+				text="{i18n>accept}"
+				class="cyan-btn-fill btnHieght25"
+			/>
+		</buttons>
+	</Dialog>
+</c:FragmentDefinition>

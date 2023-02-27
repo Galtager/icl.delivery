@@ -1,0 +1,51 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+	<Popover
+		class="my-popover"
+		placement="Bottom"
+		contentWidth="20rem"
+	>
+		<customHeader>
+			<Toolbar class="pop-toolbar">
+				<Title
+					text="{i18n>contact_title}"
+					class="label thin-text sapUiMediumMarginBegin"
+				/>
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
+				<c:Icon
+					size="1.2rem"
+					press="cancelFragment($event,'PopOver_Contact')"
+					src="sap-icon://decline"
+				/>
+			</Toolbar>
+		</customHeader>
+		<content>
+			<VBox class="sapUiMediumMargin">
+				<HBox class="sapUiSmallMarginBottom">
+					<Text
+						class="label thin-text sapUiTinyMarginEnd"
+						text="{i18n>contact_name}"
+					/>
+					<Text
+						class="label "
+						text="{DelModel>/user/contactName}"
+					/>
+				</HBox>
+				<HBox>
+					<Text
+						class="label thin-text sapUiTinyMarginEnd"
+						text="{i18n>tel}"
+					/>
+					<ObjectStatus
+						active="true"
+						class="object-status-type cyanColor"
+						text="{DelModel>/user/tel}"
+					/>
+				</HBox>
+			</VBox>
+		</content>
+	</Popover>
+</c:FragmentDefinition>

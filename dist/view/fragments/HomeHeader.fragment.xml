@@ -1,0 +1,30 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+	<Toolbar class="header">
+		<content>
+			<c:Icon
+				visible="{DelModel>/oFlags/headerNavBack}"
+				press="onNavBack"
+				class="sapUiSmallMargin backIcon"
+				src="sap-icon://nav-back"
+			/>
+			<Image
+				src="./images/ICL_NEW_LOGO_TRANSPARENT.png"
+				press="navTo('main')"
+				class="iclImg"
+			/>
+			<ToolbarSpacer/>
+			<Text
+				text="{DelModel>/oMaintain/title}"
+				class="label"
+			/>
+			<ToolbarSpacer/>
+			<Button
+				icon="sap-icon://person-placeholder"
+				class="sapUiTinyMarginBegin avatarBtn"
+			/>
+		</content>
+	</Toolbar>
+</c:FragmentDefinition>

@@ -1,0 +1,53 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+	<Dialog
+		class="borderRadius withFooter"
+		verticalScrolling="false"
+		horizontalScrolling="false"
+	>
+		<customHeader>
+			<Toolbar class="dialog-title-bg">
+				<content>
+					<ToolbarSpacer/>
+					<Title
+						text="{i18n>deleteReq}"
+						class="label"
+					/>
+					<ToolbarSpacer/>
+				</content>
+			</Toolbar>
+		</customHeader>
+		<content>
+			<VBox
+				class="sapUiSmallMargin "
+				height="100%"
+			>
+				<Title
+					text="{i18n>deleteReqQuest} {DelModel>/oMaintain/collect/currCollect/requestId}"
+					class="title sapUiMediumMarginBottom padding1rem"
+				/>
+				<HBox
+					class="flex1 likeFooter "
+					justifyContent="SpaceBetween"
+					width="100%"
+					alignItems="End"
+				>
+					<Button
+						width="8rem"
+						text="{i18n>cancel}"
+						class="cyan-btn-outline btnHieght2"
+						press="cancelFragment($event,'Dialog_DeleteReq')"
+					/>
+					<Button
+						width="8rem"
+						press="deleteReq"
+						text="{i18n>accept}"
+						class="cyan-btn-fill btnHieght25"
+					/>
+				</HBox>
+			</VBox>
+		</content>
+	</Dialog>
+</c:FragmentDefinition>

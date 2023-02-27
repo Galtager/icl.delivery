@@ -1,0 +1,1 @@
+sap.ui.define(["jquery.sap.global","sap/ui/core/library"],function(e,i){"use strict";e.sap.require("sap.ui.thirdparty.d3");sap.ui.getCore().initLibrary({name:"ui5.sign",dependencies:["sap.ui.core"],types:[],interfaces:[],controls:["ui5.sign.Signature"],elements:[],noLibraryCSS:false,version:"1.0.0"});return ui5.sign});

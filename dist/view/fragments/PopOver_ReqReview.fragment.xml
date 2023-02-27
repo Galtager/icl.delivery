@@ -1,0 +1,139 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+>
+	<Popover
+		class="my-popover"
+		placement="Bottom"
+		contentWidth="35rem"
+	>
+		<customHeader>
+			<Toolbar class="pop-toolbar">
+				<Title
+					text="{i18n>reviewNum}"
+					class="label sapUiTinysMarginBegin"
+				/>
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
+				<c:Icon
+					size="1.2rem"
+					press="cancelFragment($event,'PopOver_ReqReview')"
+					src="sap-icon://decline"
+				/>
+			</Toolbar>
+		</customHeader>
+		<content>
+			<form:SimpleForm
+				layout="ResponsiveGridLayout"
+				labelSpanS="3"
+				labelSpanM="3"
+				class="detailsForm sapUiTinyMarginTop"
+				adjustLabelSpan="false"
+			>
+				<form:content>
+					<Label
+						text="{i18n>jobOrder}"
+						class="med-label "
+					>
+						<layoutData>
+							<l:GridData span="L2 M2 S2"/>
+						</layoutData>
+					</Label>
+					<Text
+						text="{DelModel>/oData/collectReview/jobOrder}"
+						class="med-label bolder-text"
+					>
+						<layoutData>
+							<l:GridData span="L4 M4 S4"/>
+						</layoutData>
+					</Text>
+					<Text
+						text="{i18n>orderType}"
+						class="med-label"
+					/>
+					<Text
+						text="{DelModel>/oData/collectReview/orderType}"
+						class="med-label bolder-text"
+					>
+						<layoutData>
+							<l:GridData span="L4 M4 S4"/>
+						</layoutData>
+					</Text>
+					<Label
+						text="{i18n>armor_num}"
+						class="med-label "
+					>
+						<layoutData>
+							<l:GridData span="L2 M2 S2"/>
+						</layoutData>
+					</Label>
+					<Text
+						text="{DelModel>/oData/collectReview/armorId}"
+						class="med-label bolder-text"
+					>
+						<layoutData>
+							<l:GridData span="L4 M4 S4"/>
+						</layoutData>
+					</Text>
+					<Text
+						text="{i18n>shortText}"
+						class="med-label "
+					/>
+					<Text
+						class="med-label bolder-text"
+						text="{DelModel>/oData/collectReview/shortText}"
+					>
+						<layoutData>
+							<l:GridData span="L4 M4 S4"/>
+						</layoutData>
+					</Text>
+					<Label
+						text="{i18n>requestDate}"
+						class="med-label"
+					/>
+					<Text
+						text="{DelModel>/oData/collectReview/date}"
+						class="med-label bolder-text sapUiLargeMarginBottom"
+					/>
+					<Label
+						text="{i18n>funcLoact}"
+						class="med-label"
+					/>
+					<Text
+						text="{DelModel>/oData/collectReview/funcLoact}"
+						class="med-label bolder-text"
+					/>
+					<Label
+						text="{i18n>requestSite}"
+						class="med-label"
+					/>
+					<Text
+						text="{DelModel>/oData/collectReview/reqSite}"
+						class="med-label bolder-text"
+					/>
+					<Label
+						text="{i18n>delivPt}"
+						class="med-label"
+					/>
+					<Text
+						text="{DelModel>/oData/collectReview/delivPt}"
+						class="med-label bolder-text"
+					/>
+					<Label
+						text="{i18n>priority}"
+						class="med-label"
+					/>
+					<Text
+						text="{DelModel>/oData/collectReview/priority} - {
+							parts: ['DelModel>/oData/collectReview/priority'],
+							formatter: '.formatter.datePriority'
+						}"
+						class="med-label bolder-text"
+					/>
+				</form:content>
+			</form:SimpleForm>
+		</content>
+	</Popover>
+</c:FragmentDefinition>

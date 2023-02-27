@@ -1,0 +1,80 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+	<Dialog
+		class="borderRadius withFooter"
+		contentWidth="40rem"
+		verticalScrolling="false"
+		horizontalScrolling="false"
+	>
+		<customHeader>
+			<Toolbar class="dialog-title-bg">
+				<content>
+					<ToolbarSpacer/>
+					<Title
+						text="{i18n>matNum}"
+						class="label"
+					/>
+					<ToolbarSpacer/>
+				</content>
+			</Toolbar>
+		</customHeader>
+		<content>
+			<VBox
+				class="sapUiSmallMargin sapUiLargeMarginTop sapUiLargeMarginBottom"
+				height="100%"
+			>
+				<HBox class="sapUiSmallMarginBottom">
+					<c:Icon
+						class="sapUiSmallMarginEnd"
+						size="1.5rem"
+						color="#00b5d3"
+						src="sap-icon://complete"
+					/>
+					<Text
+						class="title"
+						text="{i18n>reqSuccessMulti}"
+					/>
+				</HBox>
+				<List
+					class="previewList sapUiLargeMarginBottom"
+					items="{DelModel>/oMaintain/multiCollect/previewItems}"
+				>
+					<CustomListItem class="sapUiSmallMarginBottom">
+						<HBox>
+							<Text
+								width="15rem"
+								class="text"
+								text="{i18n>request} {DelModel>requestId}"
+							/>
+							<Text
+								class="text"
+								text="{i18n>materialNum} 123123"
+							/>
+						</HBox>
+					</CustomListItem>
+				</List>
+				<HBox
+					class="flex1 likeFooter"
+					justifyContent="SpaceBetween"
+					width="100%"
+					alignItems="End"
+				>
+					<Button
+						width="10rem"
+						text="{i18n>toList}"
+						class="cyan-btn-outline btnHieght2"
+						press="navTo('main')"
+					/>
+					<Button
+						width="10rem"
+						press="onPrintFinish"
+						text="{i18n>printLabels}"
+						class="cyan-btn-fill btnHieght25"
+					/>
+				</HBox>
+			</VBox>
+		</content>
+	</Dialog>
+</c:FragmentDefinition>

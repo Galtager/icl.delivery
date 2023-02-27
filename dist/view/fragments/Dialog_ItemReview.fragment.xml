@@ -1,0 +1,159 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+>
+	<Dialog
+		class="borderRadius"
+		contentWidth="44rem"
+	>
+		<customHeader>
+			<Toolbar class="pop-toolbar">
+				<Title
+					text="{i18n>catReview} "
+					class="label sapUiSmallMarginBegin sapUiSmallMarginEnd"
+				/>
+				<Title
+					text="{DelModel>/oData/itemReview/catNum}"
+					class="label"
+				/>
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
+				<c:Icon
+					size="1.2rem"
+					press="cancelFragment($event,'Dialog_ItemReview')"
+					src="sap-icon://decline"
+				/>
+			</Toolbar>
+		</customHeader>
+		<content>
+			<form:SimpleForm
+				layout="ResponsiveGridLayout"
+				labelSpanS="3"
+				labelSpanM="3"
+				class="detailsForm padding1rem"
+				adjustLabelSpan="false"
+			>
+				<form:content>
+					<Label
+						text="{i18n>londDesc}"
+						class="label sapUiSmallMarginBottom"
+					/>
+					<Text
+						text="{DelModel>/oData/itemReview/longDesc}"
+						class="label bolder-text"
+					/>
+					<Label
+						text="{i18n>measUnit}"
+						class="label sapUiSmallMarginBottom"
+					/>
+					<Text
+						text="{DelModel>/oData/itemReview/unit}"
+						class="label bolder-text"
+					>
+						<layoutData>
+							<l:GridData span="L2 M2 S2"/>
+						</layoutData>
+					</Text>
+					<Text
+						text="{i18n>stockBalance}"
+						class="label "
+					>
+						<layoutData>
+							<l:GridData span="L2 M2 S2"/>
+						</layoutData>
+					</Text>
+					<Text
+						text="{DelModel>/oData/itemReview/stockAmount}"
+						class="label bolder-text"
+					/>
+					<Label
+						text="{i18n>storageWay}"
+						class="label sapUiSmallMarginBottom"
+					/>
+					<Text
+						text="{DelModel>/oData/itemReview/storage}"
+						class="label bolder-text"
+					>
+						<layoutData>
+							<l:GridData span="L2 M2 S2"/>
+						</layoutData>
+					</Text>
+					<Text
+						class="label "
+						text="{i18n>locatCode}"
+					>
+						<layoutData>
+							<l:GridData span="L2 M2 S2"/>
+						</layoutData>
+					</Text>
+					<Text
+						text="{DelModel>/oData/itemReview/location}"
+						class="label bolder-text"
+					/>
+				</form:content>
+			</form:SimpleForm>
+			<Table
+				class="padding1rem"
+				showSeparators="None"
+				items="{DelModel>/oData/itemReview/files}"
+			>
+				<columns>
+					<Column>
+						<Text
+							text="{i18n>fileName}"
+							class="label bolder-text"
+						/>
+					</Column>
+					<Column hAlign="Center">
+						<Text
+							text="{i18n>fileType}"
+							class="label bolder-text"
+						/>
+					</Column>
+					<Column>
+						<Text
+							text="{i18n>date}"
+							class="label bolder-text"
+						/>
+					</Column>
+					<Column>
+						<Text
+							text="{i18n>watch}"
+							class="label bolder-text"
+						/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem vAlign="Middle">
+						<cells>
+							<Text
+								text="{DelModel>name}"
+								class="label font-bold-500"
+							/>
+							<c:Icon
+								color="#002846"
+								src="{
+									path: 'DelModel>type',
+									formatter: '.formatter.getIconForMimeType'
+								}"
+								size="1.3rem"
+							/>
+							<Text
+								text="{DelModel>date}"
+								class="label font-bold-500"
+							/>
+							<Button
+								class="menu_collapse_btn normalBtn margin-lr-25"
+								iconFirst="false"
+								icon="sap-icon://vds-file"
+								press="showBlob"
+							/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</Dialog>
+</c:FragmentDefinition>

@@ -1,0 +1,29 @@
+@media only screen and (min-width: 0px) {
+    .app {
+        zoom: .6;
+    }
+}
+
+@media only screen and (min-width: 300px) {
+    .app {
+        zoom: .7;
+    }
+}
+
+@media only screen and (min-width: 752px) {
+    .app {
+        zoom: .8;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .app {
+        zoom: .9;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .app {
+        zoom: 1;
+    }
+}

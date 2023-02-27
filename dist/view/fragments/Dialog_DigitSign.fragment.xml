@@ -1,0 +1,84 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	xmlns:lab="icl.delivery.thirdparty.ui5lab.sign"
+>
+	<Dialog
+		contentHeight="25rem"
+		class="borderRadius withFooter"
+		contentWidth="35rem"
+		verticalScrolling="false"
+		horizontalScrolling="false"
+	>
+		<customHeader>
+			<Toolbar class="dialog-title-bg">
+				<content>
+					<ToolbarSpacer/>
+					<Title
+						text="{i18n>digitalSign}"
+						class="label"
+					/>
+					<ToolbarSpacer/>
+				</content>
+			</Toolbar>
+		</customHeader>
+		<content>
+			<VBox
+				class="sapUiSmallMargin sapUiLargeMarginTop"
+				height="100%"
+			>
+				<Input
+					placeholder="{i18n>enterPersonalNum}"
+					value="{DelModel>/oMaintain/collect/userNum}"
+					width="60%"
+					class="inputClass numberInput personalNumInput sapUiMediumMarginBottom"
+				/>
+				<Title
+					text="{i18n>signBottom}"
+					class="title "
+				/>
+				<VBox
+					class="signaturePad"
+					id="signaturePad"
+				>
+					<lab:Signature
+						class="signatureBorder"
+						width="70%"
+						penColor="#797979"
+						penSize="1"
+						backgroundColor="white"
+					/>
+				</VBox>
+				<HBox
+					class="flex1 likeFooter"
+					justifyContent="SpaceBetween"
+					width="100%"
+					alignItems="End"
+				>
+					<Button
+						width="8rem"
+						text="{i18n>cancel}"
+						class="cyan-btn-outline btnHieght2"
+						press="cancelFragment($event,'Dialog_DigitSign')"
+					/>
+					<HBox>
+						<Button
+							enabled="{= !!${DelModel>/oMaintain/collect/sign}}"
+							width="8rem"
+							text="{i18n>clean}"
+							press="cleanSign"
+							class="cyan-btn-outline btnHieght2 sapUiSmallMarginEnd"
+						/>
+						<Button
+							enabled="{= !!${DelModel>/oMaintain/collect/sign}}"
+							width="8rem"
+							press="cancelFragment($event,'Dialog_DigitSign')"
+							text="{i18n>acceptSign}"
+							class="cyan-btn-fill btnHieght25"
+						/>
+					</HBox>
+				</HBox>
+			</VBox>
+		</content>
+	</Dialog>
+</c:FragmentDefinition>
